@@ -92,9 +92,7 @@ st.pyplot(fig2)
 adf_result = adfuller(df['Price'].dropna())
 p_val = adf_result[1]
 
-col_a, col_b = st.columns(2)
-col_a.metric("ADF Statistic", f"{adf_result[0]:.4f}")
-col_b.metric("p-value",       f"{p_val:.4f}")
+st.metric("p-value", f"{p_val:.4f}")
 
 if p_val < 0.05:
     st.success("Series is stationary (p < 0.05).")
@@ -142,14 +140,6 @@ try:
     plt.xticks(rotation=45)
     plt.tight_layout()
     st.pyplot(fig3)
-
-    st.markdown("---")
-    st.header("Forecast Components")
-    st.caption("Trend and seasonality patterns identified by Prophet.")
-
-    fig4 = m.plot_components(forecast)
-    plt.tight_layout()
-    st.pyplot(fig4)
 
     st.markdown("---")
     csv = forecast_future[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]\
